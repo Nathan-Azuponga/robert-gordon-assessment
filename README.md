@@ -28,10 +28,10 @@ The **Dialogue Analysis App** is a Streamlit-based web application that processe
 
 1. **Clone the Repository**:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/Nathan-Azuponga/robert-gordon-assessment.git
    cd dialogue-analysis-app
    ```
-2. **Set Up a Virtual Environment** (recommended):
+2. **Set Up a Virtual Environment**:
    ```bash
    python -m venv venv
    source venv/bin/activate  # macOS/Linux
@@ -57,32 +57,12 @@ The **Dialogue Analysis App** is a Streamlit-based web application that processe
 
 1. **Run the App**:
    ```bash
-   streamlit run your_script_name.py
+   streamlit run dialogue_app_enhanced.py
    ```
 2. **Interact with the App**:
    - Open your browser (usually at `http://localhost:8501`).
-   - Upload a `.txt` file with dialogue (e.g., "Sam: I think we should integrate the chatbot.").
+   - Upload a `.txt` file with dialogue.
    - Click "Classify" to process and label utterances.
    - Toggle "Show/Hide Confidence Score" to view confidence values.
    - Click "Show Dialogue Flow" to see a visual diagram.
    - Click "Summarize" for a concise narrative summary.
-
-## Example Input File
-
-Create a `.txt` file (e.g., `dialogue.txt`):
-
-```
-Sam: I think we should integrate the chatbot into the main website.
-Jamie: I’m not convinced - we’ve had issues with reliability.
-Sam: True, but the latest version uses a more stable backend.
-Jamie: Have we tested it under real user conditions?
-Sam: Not yet. That’s on the roadmap for next month.
-Jamie: Then maybe we hold off integration until those results are in.
-Sam: Fair enough. I’ll prepare a status update for the next team meeting.
-```
-
-## Output
-
-- **Classified Utterances**: Table with Speaker, Utterance, Label, and optional Confidence.
-- **Dialogue Flow**: Visual diagram showing conversation progression.
-- **Summary**: Narrative, e.g., "A proposal was made to integrate a chatbot. Concerns about reliability were raised..."
