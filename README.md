@@ -29,7 +29,7 @@ The **Dialogue Analysis App** is a Streamlit-based web application that processe
 1. **Clone the Repository**:
    ```bash
    git clone https://github.com/Nathan-Azuponga/robert-gordon-assessment.git
-   cd dialogue-analysis-app
+   cd robert-gordon-assessment
    ```
 2. **Set Up a Virtual Environment**:
    ```bash

@@ -1,0 +1,7 @@
+streamlit==1.45.1       
+spacy==3.8.7            
+pandas>=2.2.2           
+graphviz==0.20.3        
+openai==1.82.0          
+python-dotenv==1.1.0    
+torch==2.7.0            
