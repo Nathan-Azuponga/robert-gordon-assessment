@@ -59,7 +59,7 @@ The **Dialogue Analysis App** is a Streamlit-based web application that processe
 
 1. **Run the App**:
    ```bash
-   streamlit run your_script_name.py
+   streamlit run dialogue_app_enhanced.py
    ```
 2. **Interact with the App**:
    - Open your browser (usually at `http://localhost:8501`).
