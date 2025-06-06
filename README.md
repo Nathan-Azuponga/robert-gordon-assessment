@@ -12,30 +12,32 @@ The **Dialogue Analysis App** is a Streamlit-based web application that processe
 - **Summarize Conversation**: Generates a concise narrative summary using OpenAI's `gpt-4o-mini` model.
 - **Interactive UI**: Toggle confidence scores and diagram visibility, view results in a table.
 
+![App overview](diagram.png)
+
 ## Requirements
 
 - **Python**: 3.8 or higher
 - **Dependencies**: Listed in `requirements.txt`:
-  - streamlit==1.38.0
-  - spacy==3.7.6
+  - streamlit==1.45.1
+  - spacy==3.8.7
   - pandas==2.2.2
   - graphviz==0.20.3
-  - openai==1.45.0
-  - python-dotenv==1.0.1
-  - torch==2.4.1
+  - openai==1.82.0
+  - python-dotenv==1.1.0
+  - torch==2.7.0
 
 ## Installation
 
 1. **Clone the Repository**:
    ```bash
    git clone https://github.com/Nathan-Azuponga/robert-gordon-assessment.git
-   cd robert-gordon-assessment
+   cd dialogue-analysis-app
    ```
-2. **Set Up a Virtual Environment**:
+2. **Set Up a Virtual Environment** (recommended):
    ```bash
-   python -m venv venv
-   source venv/bin/activate  # macOS/Linux
-   .\venv\Scripts\activate   # Windows
+   python -m venv <your virtual environment>
+   source <your virtual environment>/bin/activate  # macOS/Linux
+   .\<your virtual environment>\Scripts\activate   # Windows
    ```
 3. **Install Dependencies**:
    ```bash
@@ -57,11 +59,11 @@ The **Dialogue Analysis App** is a Streamlit-based web application that processe
 
 1. **Run the App**:
    ```bash
-   streamlit run dialogue_app_enhanced.py
+   streamlit run your_script_name.py
    ```
 2. **Interact with the App**:
    - Open your browser (usually at `http://localhost:8501`).
-   - Upload a `.txt` file with dialogue.
+   - Upload a `.txt` file with dialogue (e.g., "Sam: I think we should integrate the chatbot.").
    - Click "Classify" to process and label utterances.
    - Toggle "Show/Hide Confidence Score" to view confidence values.
    - Click "Show Dialogue Flow" to see a visual diagram.

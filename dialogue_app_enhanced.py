@@ -18,6 +18,19 @@ nlp = spacy.load("en_core_web_sm")
 
 # --- Dialogue Classification Function ---
 def classify_utterance(utterance: str) -> Tuple[str, float]:
+    """
+        Classify a single utterance into a dialogue act category based on rule-based approach.
+
+        Confidence is calculated and capped at a maximum of 1.0.
+
+        Parameters:
+            utterance (str): A single line of dialogue in the format "Speaker: Utterance".
+
+        Returns:
+            Tuple[str, float]: A tuple containing the predicted label and a confidence score 
+            between 0.0 and 1.0. Returns ("Other", 0.0) if no meaningful category is matched.
+    """
+
     doc = nlp(utterance.lower())
     text = utterance.lower()
     max_confidence = 5.0
@@ -50,6 +63,7 @@ def classify_utterance(utterance: str) -> Tuple[str, float]:
     scores["Deferral"] = min(sum(1 for word in deferral_keywords if word in text), max_confidence) / max_confidence
     scores["Commitment"] = min(sum(1 for word in commitment_keywords if word in text), max_confidence) / max_confidence
 
+    # Determine the label with the highest confidence score
     best_label = max(scores, key=scores.get)
     confidence = scores[best_label]
 
@@ -57,6 +71,20 @@ def classify_utterance(utterance: str) -> Tuple[str, float]:
 
 # --- Process Dialogue ---
 def process_dialogue(file_content: str) -> List[Dict]:
+    """
+        Process a dialogue transcript and classify each utterance by dialogue act.
+
+        Parameters:
+            file_content (str): Each line representing one utterance.
+
+        Returns:
+            List[Dict]: A list of dictionaries, each containing:
+                - 'Speaker' (str)
+                - 'Utterance' (str)
+                - 'Label' (str)
+                - 'Confidence' (float)
+    """
+
     results = []
     lines = file_content.strip().split("\n")
     for line in lines:
@@ -72,9 +100,21 @@ def process_dialogue(file_content: str) -> List[Dict]:
 
 # --- Create Flow Diagram ---
 def create_flow_diagram(results: List[Dict]) -> Digraph:
+    """
+        Generate a directed flow diagram representing the sequence of dialogue utterances.
+
+        Parameters:
+            results (List[Dict])
+                - Speaker (str)
+                - Utterance (str)
+                - Label (str)
+
+        Returns:
+            Digraph: A Graphviz Digraph object representing the dialogue flow.
+    """
+
     dot = Digraph(comment="Dialogue Flow")
 
-    # Make the layout wider and nodes clearer
     dot.attr(rankdir='HR', size='20,10', nodesep='1.0', ranksep='0.6') 
 
     for i, r in enumerate(results):
@@ -85,14 +125,27 @@ def create_flow_diagram(results: List[Dict]) -> Digraph:
 
     return dot
 
+# --- Generate summary of dialogue ---
 def generate_llm_summary(dialogue_results: List[Dict]) -> str:
+    """
+        Generate a concise narrative summary of a dialogue using the OpenAI API.
+
+        Parameters:
+            dialogue_results (List[Dict])
+                - 'Speaker' (str)
+                - 'Utterance' (str)
+                - 'Label' (str)
+
+        Returns:
+            str: A narrative summary of the dialogue structure.
+    """
 
     client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
     # Define the summarization prompt
     prompt = (
         "Given the following dialogue where each utterance is labeled with its discourse act, "
-        "write a concise narrative summary describing how the conversation progressed structurally. It should as short and concise as possible. \n\n"
+        "write a concise narrative summary describing how the conversation progressed structurally. It should be as short and concise as possible. \n\n"
     )
     for turn in dialogue_results:
         prompt += f"{turn['Speaker']}: {turn['Utterance']} [{turn['Label']}]\n"
@@ -186,7 +239,7 @@ def main():
                     # Generate summary
                     with st.spinner("Generating summary..."):
                         summary = generate_llm_summary(st.session_state.results)
-                    st.subheader("Narrative Summary")
+                    st.subheader("Dialogue Summary")
                     st.write(summary)
 
         except Exception as e:
